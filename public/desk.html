@@ -205,50 +205,7 @@ html,body{height:100%;background:var(--cream);color:var(--ink);font-family:'Jost
   <!-- ════════════════════════════ SIDEBAR ════════════════════════════ -->
   <aside class="sidebar">
     <div class="sb-logo">
-      <svg width="76" height="76" viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="logoGrad" cx="40%" cy="35%" r="65%">
-            <stop offset="0%" stop-color="#D4841A"/>
-            <stop offset="100%" stop-color="#6B2E08"/>
-          </radialGradient>
-        </defs>
-        <!-- Outer ring -->
-        <circle cx="38" cy="38" r="36" fill="url(#logoGrad)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
-        <!-- Inner ring -->
-        <circle cx="38" cy="38" r="30" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
-        <!-- Decorative dots at cardinal points -->
-        <circle cx="38" cy="5"  r="1.8" fill="rgba(255,255,255,0.55)"/>
-        <circle cx="38" cy="71" r="1.8" fill="rgba(255,255,255,0.55)"/>
-        <circle cx="5"  cy="38" r="1.8" fill="rgba(255,255,255,0.55)"/>
-        <circle cx="71" cy="38" r="1.8" fill="rgba(255,255,255,0.55)"/>
-        <!-- Small dots between -->
-        <circle cx="17" cy="11" r="1.2" fill="rgba(255,255,255,0.35)"/>
-        <circle cx="59" cy="11" r="1.2" fill="rgba(255,255,255,0.35)"/>
-        <circle cx="17" cy="65" r="1.2" fill="rgba(255,255,255,0.35)"/>
-        <circle cx="59" cy="65" r="1.2" fill="rgba(255,255,255,0.35)"/>
-        <!-- Goddess head (simplified) -->
-        <ellipse cx="38" cy="28" rx="7" ry="8.5" fill="rgba(255,255,255,0.88)"/>
-        <!-- Crown/headdress suggestion -->
-        <path d="M31,23 Q38,16 45,23" fill="rgba(255,255,255,0.6)" stroke="rgba(255,255,255,0.8)" stroke-width="0.5"/>
-        <path d="M33,20 Q38,14 43,20" fill="rgba(255,255,255,0.4)" stroke="rgba(255,255,255,0.7)" stroke-width="0.5"/>
-        <!-- Eyes -->
-        <ellipse cx="35" cy="27" rx="1.5" ry="1.2" fill="#6B2E08"/>
-        <ellipse cx="41" cy="27" rx="1.5" ry="1.2" fill="#6B2E08"/>
-        <!-- Subtle smile -->
-        <path d="M35.5,31.5 Q38,33.5 40.5,31.5" fill="none" stroke="#6B2E08" stroke-width="0.8" stroke-linecap="round"/>
-        <!-- Shoulders / body suggestion -->
-        <path d="M28,38 Q38,42 48,38" fill="rgba(255,255,255,0.5)" stroke="none"/>
-        <!-- YOGA text arc top -->
-        <path id="topArc" d="M14,38 A24,24 0 0,1 62,38" fill="none"/>
-        <text font-size="7" font-weight="700" fill="white" letter-spacing="3" font-family="serif">
-          <textPath href="#topArc" startOffset="12%">Y O G A</textPath>
-        </text>
-        <!-- SAMVIDAA text arc bottom -->
-        <path id="botArc" d="M10,40 A28,28 0 0,0 66,40" fill="none"/>
-        <text font-size="6.5" font-weight="700" fill="white" letter-spacing="2" font-family="serif">
-          <textPath href="#botArc" startOffset="5%">S A M V I D A A</textPath>
-        </text>
-      </svg>
+      <img src="/logo.png" alt="Yoga Samvidaa" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.4)">
       <div class="sb-logo-text">Yoga Samvidaa</div>
       <div class="sb-logo-sub">Heal from within</div>
     </div>
@@ -2224,7 +2181,6 @@ function doPrint() {
   const w=window.open("","_blank");
   w.document.write(`<!DOCTYPE html><html><head><title>Receipt ${currentReceipt?.id||""}</title><style>body{margin:20px;font-family:sans-serif}.rcpt-header{background:#2E7BB4;padding:14px 20px;display:flex;justify-content:space-between}.rcpt-header-left,.rcpt-header-right{color:white;font-weight:700;font-size:18px}.rcpt-subheader{background:#3A5A7A;padding:7px 20px;display:flex;justify-content:space-between;color:rgba(255,255,255,.8);font-size:12px}.rcpt-body{padding:16px 20px}.rcpt-address-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.rcpt-addr-box{background:#D9E5F0;padding:10px 12px}.rcpt-addr-label{font-size:10px;font-weight:700;color:#2E7BB4;text-transform:uppercase;margin-bottom:4px}.rcpt-addr-text{font-size:11px;line-height:1.6}.rcpt-desc-head{display:flex;justify-content:space-between;padding:5px 8px;background:#E8EEF5;font-size:11px;font-weight:700;color:#2E7BB4}.rcpt-desc-row{display:flex;justify-content:space-between;padding:8px;border-bottom:1px dashed #eee;font-size:13px}.rcpt-paid-text{font-size:60px;font-weight:900;color:rgba(150,150,150,.15);text-align:center;padding:20px 0;letter-spacing:.1em}.rcpt-totals{margin-left:auto;width:200px}.rcpt-total-row{display:flex;justify-content:space-between;padding:4px 8px;font-size:12px;color:#555}.rcpt-total-row.final{background:#2E7BB4;color:white;font-weight:700;font-size:13px;padding:6px 8px}</style></head><body>${buildReceiptHTML(currentReceipt)}
 <script>
-// ── Auth check ──────────────────────────────
 async function checkAuth() {
   const res = await fetch('/api/auth/session');
   const session = await res.json();
@@ -2232,7 +2188,7 @@ async function checkAuth() {
     document.body.innerHTML = `
       <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#FAF3EA;font-family:Jost,sans-serif">
         <div style="text-align:center;padding:40px">
-          <div style="font-size:48px;margin-bottom:12px">🪷</div>
+          <img src="/logo.png" style="width:90px;height:90px;border-radius:50%;margin-bottom:16px;display:block;margin-left:auto;margin-right:auto">
           <div style="font-family:Cormorant Garamond,serif;font-size:28px;color:#7B3A10;margin-bottom:4px">Yoga Samvidaa</div>
           <div style="font-size:13px;color:#7A5C44;letter-spacing:.12em;text-transform:uppercase;margin-bottom:32px">Studio Desk</div>
           <a href="/api/auth/signin/google?callbackUrl=/" style="background:#7B3A10;color:#fff;text-decoration:none;padding:12px 28px;border-radius:24px;font-size:14px;font-weight:500">
@@ -2246,7 +2202,6 @@ async function checkAuth() {
   return session;
 }
 
-// ── Load live data from Supabase ─────────────
 async function loadLiveData() {
   try {
     const [sRes, rRes] = await Promise.all([
@@ -2255,39 +2210,24 @@ async function loadLiveData() {
     ]);
     const liveStudents = await sRes.json();
     const liveReceipts = await rRes.json();
-
     if (Array.isArray(liveStudents) && liveStudents.length > 0) {
-      STUDENTS = liveStudents.map((s, i) => ({
-        id: i + 1,
-        name: s.name,
-        csid: s.csid || '',
-        phone: s.phone || '',
-        classId: s.class_id || 'therapy',
-        initials: s.initials || s.name.slice(0,2).toUpperCase(),
-        color: '#EAD9C4',
-        tcolor: '#7B3A10',
-        status: s.status || 'active',
-        remaining: s.remaining || 8,
-        email: s.email || ''
+      STUDENTS = liveStudents.map((s,i) => ({
+        id: i+1, name: s.name, csid: s.csid||'',
+        phone: s.phone||'', classId: s.class_id||'therapy',
+        initials: s.initials||s.name.slice(0,2).toUpperCase(),
+        color: '#EAD9C4', tcolor: '#7B3A10',
+        status: s.status||'active', remaining: s.remaining||8
       }));
     }
-
     if (Array.isArray(liveReceipts) && liveReceipts.length > 0) {
       RECEIPTS = liveReceipts.map(r => ({
-        id: r.id,
-        inv: r.inv,
-        date: r.date,
-        student: r.student,
-        csid: r.csid || '',
-        amount: r.amount || 0,
-        mode: r.mode || '—',
-        phone: r.phone || '',
-        classId: r.class_id || 'therapy',
-        classRaw: r.class_raw || ''
+        id: r.id, inv: r.inv, date: r.date,
+        student: r.student, csid: r.csid||'',
+        amount: r.amount||0, mode: r.mode||'—',
+        phone: r.phone||'', classId: r.class_id||'therapy',
+        classRaw: r.class_raw||''
       }));
     }
-
-    // Rebuild all UI with live data
     buildDashboard();
     buildStudentList();
     buildRecentReceipts();
@@ -2299,18 +2239,13 @@ async function loadLiveData() {
     populateStudentDropdown();
     populateAttendSelect();
     document.getElementById('studentCountBadge').textContent = STUDENTS.length;
-
-  } catch(e) {
-    console.error('Live data load error:', e);
-  }
+  } catch(e) { console.error('Live data load error:', e); }
 }
 
-// ── Boot ─────────────────────────────────────
 (async function() {
   const session = await checkAuth();
   if (session) {
     await loadLiveData();
-    // Update greeting with real name
     const name = session.user?.name?.split(' ')[0] || 'Dr. Arathi';
     const hr = new Date().getHours();
     const greet = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
@@ -2701,7 +2636,6 @@ document.getElementById("pageTitle").textContent=(hr<12?"Good morning, Dr. Arath
 </script>
 
 <script>
-// ── Auth check ──────────────────────────────
 async function checkAuth() {
   const res = await fetch('/api/auth/session');
   const session = await res.json();
@@ -2709,7 +2643,7 @@ async function checkAuth() {
     document.body.innerHTML = `
       <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#FAF3EA;font-family:Jost,sans-serif">
         <div style="text-align:center;padding:40px">
-          <div style="font-size:48px;margin-bottom:12px">🪷</div>
+          <img src="/logo.png" style="width:90px;height:90px;border-radius:50%;margin-bottom:16px;display:block;margin-left:auto;margin-right:auto">
           <div style="font-family:Cormorant Garamond,serif;font-size:28px;color:#7B3A10;margin-bottom:4px">Yoga Samvidaa</div>
           <div style="font-size:13px;color:#7A5C44;letter-spacing:.12em;text-transform:uppercase;margin-bottom:32px">Studio Desk</div>
           <a href="/api/auth/signin/google?callbackUrl=/" style="background:#7B3A10;color:#fff;text-decoration:none;padding:12px 28px;border-radius:24px;font-size:14px;font-weight:500">
@@ -2723,7 +2657,6 @@ async function checkAuth() {
   return session;
 }
 
-// ── Load live data from Supabase ─────────────
 async function loadLiveData() {
   try {
     const [sRes, rRes] = await Promise.all([
@@ -2732,39 +2665,24 @@ async function loadLiveData() {
     ]);
     const liveStudents = await sRes.json();
     const liveReceipts = await rRes.json();
-
     if (Array.isArray(liveStudents) && liveStudents.length > 0) {
-      STUDENTS = liveStudents.map((s, i) => ({
-        id: i + 1,
-        name: s.name,
-        csid: s.csid || '',
-        phone: s.phone || '',
-        classId: s.class_id || 'therapy',
-        initials: s.initials || s.name.slice(0,2).toUpperCase(),
-        color: '#EAD9C4',
-        tcolor: '#7B3A10',
-        status: s.status || 'active',
-        remaining: s.remaining || 8,
-        email: s.email || ''
+      STUDENTS = liveStudents.map((s,i) => ({
+        id: i+1, name: s.name, csid: s.csid||'',
+        phone: s.phone||'', classId: s.class_id||'therapy',
+        initials: s.initials||s.name.slice(0,2).toUpperCase(),
+        color: '#EAD9C4', tcolor: '#7B3A10',
+        status: s.status||'active', remaining: s.remaining||8
       }));
     }
-
     if (Array.isArray(liveReceipts) && liveReceipts.length > 0) {
       RECEIPTS = liveReceipts.map(r => ({
-        id: r.id,
-        inv: r.inv,
-        date: r.date,
-        student: r.student,
-        csid: r.csid || '',
-        amount: r.amount || 0,
-        mode: r.mode || '—',
-        phone: r.phone || '',
-        classId: r.class_id || 'therapy',
-        classRaw: r.class_raw || ''
+        id: r.id, inv: r.inv, date: r.date,
+        student: r.student, csid: r.csid||'',
+        amount: r.amount||0, mode: r.mode||'—',
+        phone: r.phone||'', classId: r.class_id||'therapy',
+        classRaw: r.class_raw||''
       }));
     }
-
-    // Rebuild all UI with live data
     buildDashboard();
     buildStudentList();
     buildRecentReceipts();
@@ -2776,18 +2694,13 @@ async function loadLiveData() {
     populateStudentDropdown();
     populateAttendSelect();
     document.getElementById('studentCountBadge').textContent = STUDENTS.length;
-
-  } catch(e) {
-    console.error('Live data load error:', e);
-  }
+  } catch(e) { console.error('Live data load error:', e); }
 }
 
-// ── Boot ─────────────────────────────────────
 (async function() {
   const session = await checkAuth();
   if (session) {
     await loadLiveData();
-    // Update greeting with real name
     const name = session.user?.name?.split(' ')[0] || 'Dr. Arathi';
     const hr = new Date().getHours();
     const greet = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
