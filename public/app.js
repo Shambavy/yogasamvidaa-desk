@@ -9,7 +9,7 @@ const CLASSES = [
   { id:"weekend",    name:"Weekend Fitness Session",   desc:"Saturday & Sunday", days:"Sat & Sun", time:"11:00 AM – 12:00 PM", price:2000, per:"month", type:"Group", emoji:"🌅" },
   { id:"tinyyogis",  name:"Tiny Yogi's Session",       desc:"Children's yoga (ages 4–12)", days:"Sat & Sun", time:"10:00 AM – 11:00 AM", price:2000, per:"month", type:"Group", emoji:"👶" },
   { id:"vedic",      name:"Vedic Chanting",            desc:"Sacred chanting, mind clarity", days:"Appointment basis", time:"By appointment", price:500, per:"session", type:"Individual", emoji:"🕉️" },
-  { id:"refund",     name:"Refund",                    desc:"Refund issued", days:"—", time:"—", price:0, per:"—", type:"Individual", emoji:"↩️" },
+  
 ];
 
 const _day = new Date().getDay(); // 0=Sun,1=Mon..6=Sat
@@ -1428,13 +1428,17 @@ function populateClassDropdowns() {
 }
 
 function onRcptStudentChange() {
-  const sid=document.getElementById("rcptStudent").value;
-  const s=STUDENTS.find(x=>x.id==sid);
-  if(s){
-    document.getElementById("rcptCSID").value=s.csid||"";
-    document.getElementById("rcptPhone").value=s.phone||"";
-    document.getElementById("rcptClass").value=s.classId||"";
+  const sid = document.getElementById("rcptStudent").value;
+  // Match by id OR by name (value might be id or name depending on how dropdown was built)
+  let s = STUDENTS.find(x => String(x.id) === String(sid));
+  if (!s) s = STUDENTS.find(x => x.name === sid);
+  if (!s && sid) s = STUDENTS.find(x => x.csid === sid);
+  if (s) {
+    document.getElementById("rcptCSID").value = s.csid || "";
+    document.getElementById("rcptPhone").value = s.phone || "";
+    document.getElementById("rcptClass").value = s.classId || "";
     onRcptClassChange();
+    refreshReceipt();
   }
 }
 
