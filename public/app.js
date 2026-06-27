@@ -17,7 +17,7 @@ const TODAY_CLASS_IDS = (_day >= 1 && _day <= 5)
   ? ["fitness","therapy"]          // Weekdays: Fitness 11am + Therapy (appointment)
   : ["tinyyogis","weekend","therapy"]; // Weekends: Tiny Yogis + Weekend Fitness + Therapy
 
-window.STUDENTS = window.STUDENTS || [
+let STUDENTS = [
   {
     "id": 1,
     "name": "Ramamurthy",
@@ -488,7 +488,7 @@ window.STUDENTS = window.STUDENTS || [
   }
 ];
 
-window.RECEIPTS = window.RECEIPTS || [
+let RECEIPTS = [
   {
     "id": "RCP-0001",
     "inv": 1,
@@ -1927,17 +1927,46 @@ const greet=hr<12?"Good morning":"hr<17"?"Good afternoon":"Good evening";
 document.getElementById("pageTitle").textContent=(hr<12?"Good morning, Dr. Arathi 🙏":hr<17?"Good afternoon, Dr. Arathi 🙏":"Good evening, Dr. Arathi 🙏");
 
 
-window.rebuildApp = function() {
-  STUDENTS = window.STUDENTS || STUDENTS;
-  RECEIPTS = window.RECEIPTS || RECEIPTS;
-  buildDashboard();
-  buildStudentList();
-  buildRecentReceipts();
-  buildCollections();
-  buildAttendGrid();
-  buildReminders();
-  buildScheduleTable();
-  populateStudentFilter();
-  populateStudentDropdown();
-  populateAttendSelect();
-};
+
+// ── SUPABASE LIVE DATA LOADER ──────────────────
+async function loadLiveData() {
+  try {
+    const [sRes, rRes] = await Promise.all([
+      fetch('/api/students'),
+      fetch('/api/receipts')
+    ]);
+    const liveStudents = await sRes.json();
+    const liveReceipts = await rRes.json();
+    if (Array.isArray(liveStudents) && liveStudents.length > 0) {
+      STUDENTS = liveStudents.map((s, i) => ({
+        id: i+1, name: s.name, csid: s.csid||'',
+        phone: s.phone||'', classId: s.class_id||'therapy',
+        initials: s.initials||s.name.slice(0,2).toUpperCase(),
+        color: '#EAD9C4', tcolor: '#7B3A10',
+        status: s.status||'active', remaining: s.remaining||8
+      }));
+    }
+    if (Array.isArray(liveReceipts) && liveReceipts.length > 0) {
+      RECEIPTS = liveReceipts.map(r => ({
+        id: r.id, inv: r.inv, date: r.date,
+        student: r.student, csid: r.csid||'',
+        amount: r.amount||0, mode: r.mode||'—',
+        phone: r.phone||'', classId: r.class_id||'therapy',
+        classRaw: r.class_raw||''
+      }));
+    }
+    buildDashboard();
+    buildStudentList();
+    buildRecentReceipts();
+    buildCollections();
+    buildAttendGrid();
+    buildReminders();
+    buildScheduleTable();
+    populateStudentFilter();
+    populateStudentDropdown();
+    populateAttendSelect();
+    const cb = document.getElementById('studentCountBadge');
+    if (cb) cb.textContent = STUDENTS.length;
+  } catch(e) { console.error('Supabase load error:', e); }
+}
+loadLiveData();
