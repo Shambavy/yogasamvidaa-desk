@@ -1418,7 +1418,7 @@ function populateClassDropdowns() {
   STUDENTS.forEach(s=>{
     [rs,as].forEach(sel=>{
       const o=document.createElement("option");
-      o.value=s.id; o.textContent=s.name;
+      o.value=s.csid||s.name; o.textContent=s.name;
       sel.appendChild(o);
     });
   });
@@ -1428,11 +1428,10 @@ function populateClassDropdowns() {
 }
 
 function onRcptStudentChange() {
-  const sid = document.getElementById("rcptStudent").value;
-  // Match by id OR by name (value might be id or name depending on how dropdown was built)
-  let s = STUDENTS.find(x => String(x.id) === String(sid));
-  if (!s) s = STUDENTS.find(x => x.name === sid);
-  if (!s && sid) s = STUDENTS.find(x => x.csid === sid);
+  const val = document.getElementById("rcptStudent").value;
+  // val is now csid or name
+  let s = STUDENTS.find(x => x.csid === val);
+  if (!s) s = STUDENTS.find(x => x.name === val);
   if (s) {
     document.getElementById("rcptCSID").value = s.csid || "";
     document.getElementById("rcptPhone").value = s.phone || "";
@@ -1457,8 +1456,9 @@ function onRcptClassChange() {
 }
 
 function refreshReceipt() {
-  const sid=document.getElementById("rcptStudent").value;
-  const s=STUDENTS.find(x=>x.id==sid);
+  const val=document.getElementById("rcptStudent").value;
+  let s=STUDENTS.find(x=>x.csid===val);
+  if(!s) s=STUDENTS.find(x=>x.name===val);
   if(!s) return;
   const cid=document.getElementById("rcptClass").value;
   const c=CLASSES.find(x=>x.id===cid)||{name:"—"};
@@ -1503,8 +1503,9 @@ function buildReceiptHTML(r) {
 }
 
 function generateReceipt() {
-  const sid=document.getElementById("rcptStudent").value;
-  const s=STUDENTS.find(x=>x.id==sid);
+  const val=document.getElementById("rcptStudent").value;
+  let s=STUDENTS.find(x=>x.csid===val);
+  if(!s) s=STUDENTS.find(x=>x.name===val);
   if(!s||!document.getElementById("rcptAmt").value){toast("Please fill student and amount","error");return;}
   const cid=document.getElementById("rcptClass").value;
   const c=CLASSES.find(x=>x.id===cid)||{name:"—"};
